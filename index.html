@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grocery QR Code Generator</title>
+</head>
+<body>
+<h1>Grocery QR Code Generator</h1>
+
+<form method="POST">
+    <input name="name" placeholder="Product Name" required><br>
+    <input name="price" type="number" placeholder="Price" required><br>
+    <input name="quantity" type="number" placeholder="Quantity" required><br>
+    <button type="submit">Generate QR</button>
+</form>
+
+<h2>Products</h2>
+<ul>
+    {% for product in products %}
+        <li>
+            {{ product.name }} - ₹{{ product.price }} ({{ product.quantity }})
+            {% if product.qr_path %}
+                <br><img src="{{ url_for('static', filename='qr/' + product._id|string + '.png') }}" width="100">
+                <br><a href="/product/{{ product._id }}">View Details</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
